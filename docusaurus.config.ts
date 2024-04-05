@@ -16,7 +16,7 @@ const config: Config = {
   organizationName: "hanabi",
   projectName: "hanabi.github.io",
 
-  onBrokenAnchors: "warn", // TODO: change to throw https://github.com/facebook/docusaurus/issues/9717
+  onBrokenAnchors: "throw",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
   onDuplicateRoutes: "throw",
@@ -43,7 +43,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Vanilla components
     navbar: {
       title: "H-Group Conventions",
       logo: {
@@ -77,12 +76,12 @@ const config: Config = {
         },
         {
           href: "https://github.com/hanabi/hanabi.github.io/",
-          label: "Repo",
+          className: "header-github-link",
           position: "right",
         },
         {
-          href: "https://github.com/hanabi/hanabi.github.io/issues",
-          label: "Proposals",
+          href: "https://discord.gg/FADvkJp",
+          className: "header-discord-link",
           position: "right",
         },
       ],
@@ -94,7 +93,6 @@ const config: Config = {
       },
     },
 
-    // Extra settings
     algolia: {
       appId: "24AGYEOQ7J", // cspell:disable-line
       apiKey: "7e647fd7de142915da9f459b345dfca4",
@@ -112,7 +110,7 @@ const config: Config = {
   // Added fields from vanilla
   // -------------------------
 
-  plugins: [path.resolve(__dirname, "image-generator")],
+  plugins: ["./image-generator/index.ts"],
   scripts: [
     {
       src: "https://kit.fontawesome.com/1932a73877.js",

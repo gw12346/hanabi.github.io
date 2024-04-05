@@ -1,24 +1,9 @@
-import commandExists from "command-exists";
-import { $, lintScript } from "isaacscript-common-node";
+import { $, getPythonCommand, lintScript } from "isaacscript-common-node";
 
-const pythonExists = commandExists.sync("python");
-const pythonExists3 = commandExists.sync("python3");
-
-let pythonCommand: string;
-if (pythonExists3) {
-  pythonCommand = "python3";
-} else if (pythonExists) {
-  pythonCommand = "python";
-} else {
-  throw new Error(
-    "You must have Python installed and available in the PATH to lint this website.",
-  );
-}
+const pythonCommand = getPythonCommand(true);
 
 await lintScript(async () => {
-  const promises: Array<Promise<unknown>> = [];
-
-  promises.push(
+  const promises = [
     // Use Prettier to check formatting.
     // - "--log-level=warn" makes it only output errors.
     $`prettier --log-level=warn --check .`,
@@ -49,7 +34,7 @@ await lintScript(async () => {
     $`${pythonCommand} ./image-generator/check_unused.py`,
 
     // @template-customization-end
-  );
+  ];
 
   await Promise.all(promises);
 });
